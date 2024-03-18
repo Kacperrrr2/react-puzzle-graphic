@@ -1,0 +1,45 @@
+.number{
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background: var(--tile);
+    font-size: 50px;
+    color: white;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: left .4s ease-in-out, top .4s ease-in-out;
+    background-image: url('https://zse-kielce.edu.pl/wp-content/uploads/2022/05/logo_elektryk.png')
+  }
+  .number.correct{
+    background: var(--correct);
+  }
+  
+
+// Ustawienia
+
+@function generateCellStyles($rows) {
+  $columns:$rows;
+
+  $size: 100px;
+  @for $j from 0 through $rows - 1 {
+    @for $i from 0 through $columns - 1 {
+      $styles: #{$styles}
+        '.number.slot--#{$j * $rows + $i} { \
+          left: calc(#{$i} * #{$size}); \
+          top: calc(#{$j} * #{$size}); \
+        }'; 
+    }
+  }
+
+  @return $styles; // Zwracanie wygenerowanych stylów
+}
+
+// Dodatkowy styl dla wyłączonych komórek
+.number.disabled {
+  pointer-events: none;
+  background-color: transparent;
+  background-image: none;
+}
